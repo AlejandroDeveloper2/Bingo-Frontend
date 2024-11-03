@@ -4,7 +4,7 @@ import { PrivateRoutes, PublicRoutes } from "@routes/.";
 
 import { useAuthStore } from "@hooks/index";
 
-import { LoadingScreen } from "@components/index";
+import { LoadingScreen, Spinner } from "@components/index";
 
 const MainRoutes = (): JSX.Element => {
   const { authenticated, checking } = useAuthStore();
@@ -12,7 +12,7 @@ const MainRoutes = (): JSX.Element => {
   if (checking)
     return (
       <LoadingScreen opacity={1} isScreenLoading={true}>
-        <p>Cargando..</p>
+        <Spinner color="black" message="Cargando..." direction="column" />
       </LoadingScreen>
     );
 

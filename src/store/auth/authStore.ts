@@ -11,7 +11,7 @@ import {
 } from "@interfaces/data";
 import { AuthStore } from "@interfaces/store";
 
-import AuthService from "@services/authService.service";
+import { AuthService } from "@services/.";
 
 const authService = new AuthService();
 

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Loading } from "./data";
+import { Game, Loading } from "./data";
 
 type ButtonVariantType = "black" | "white";
 type IconType = React.ForwardRefExoticComponent<
@@ -84,6 +84,36 @@ interface SpinnerProps {
   message?: string;
 }
 
+interface NavigationProps {
+  pageTitle: string;
+  PageIcon: IconType;
+}
+
+interface BadgeIndicatorProps {
+  label: string;
+  value: string;
+  Icon: IconType;
+}
+
+interface TitleProps {
+  text: string;
+  Icon: IconType;
+}
+
+interface GameCardListProps {
+  children: ReactNode | ReactNode[];
+}
+
+interface GameCardProps {
+  game: Game;
+}
+
+interface FeatureProps {
+  Icon: IconType;
+  label: string;
+  value: string | number;
+}
+
 export type {
   ButtonVariantType,
   IconType,
@@ -102,4 +132,11 @@ export type {
   FormProps,
   FieldSetProps,
   SpinnerProps,
+  NavigationProps,
+  BadgeIndicatorProps,
+  TitleProps,
+  GameCardProps,
+  GameCardListProps,
+  FeatureProps,
+  GameCardProps,
 };

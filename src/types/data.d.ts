@@ -5,6 +5,9 @@ type FieldErrorType = {
 type KeyList<T> = keyof T;
 type WrongInput<T> = Record<KeyList<T>, FieldErrorType>;
 type SessionStatusType = "online" | "offline";
+type GameModeType = "full" | "diagonal" | "vertical" | "horizontal" | "corners";
+type BingoBallNameType = "B" | "I" | "N" | "G" | "O";
+type GameStatusType = "ended" | "in-progress" | "waiting" | "unstart";
 
 interface LoginData {
   email: string;
@@ -49,12 +52,48 @@ interface Auth {
   exp: number;
   iat: number;
 }
+/**Bingo Types */
+
+interface Player {
+  _id: string;
+  email: string;
+  name: string;
+  correctBallSelections: number;
+}
+
+interface BingoBall {
+  _id: string;
+  name: BingoBallNameType;
+  number: number;
+  selected: boolean;
+  enabled: boolean;
+}
+
+interface BingoCard {
+  _id: string;
+  balls: BingoBall[];
+  user: User;
+  code: string;
+}
+
+interface Game {
+  _id: string;
+  players: Player[];
+  bingoCards: BingoCard[];
+  randomBingoBalls: BingoBall[];
+  gameMode: GameModeType;
+  gameStatus: GameStatusType;
+  winner: User | null;
+}
 
 export type {
   FieldErrorType,
   WrongInput,
   KeyList,
   SessionStatusType,
+  GameModeType,
+  BingoBallNameType,
+  GameStatusType,
   LoginData,
   CreateAccountData,
   Loading,
@@ -63,4 +102,8 @@ export type {
   User,
   UserAuth,
   Auth,
+  Player,
+  BingoBall,
+  BingoCard,
+  Game,
 };

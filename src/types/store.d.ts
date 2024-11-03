@@ -1,4 +1,12 @@
-import { LoginData, Loading, CreateAccountData, Auth, User } from "./data";
+import {
+  LoginData,
+  Loading,
+  CreateAccountData,
+  Auth,
+  User,
+  Game,
+  BingoCard,
+} from "./data";
 
 interface AuthStore {
   loggedUser: User | null;
@@ -21,4 +29,10 @@ interface AuthStore {
   ) => Promise<void>;
 }
 
-export type { AuthStore };
+interface BingoStore {
+  bingo: Game;
+  player: Player;
+  bingoBoard: BingoCard;
+}
+
+export type { AuthStore, BingoStore };
