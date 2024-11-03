@@ -1,7 +1,12 @@
+import { ToastContainer } from "react-toastify";
+
+import { MainRoutes } from "@routes/.";
+
 function App(): JSX.Element {
   return (
     <>
-      <p>Hola</p>
+      <MainRoutes />
+      <ToastContainer position="bottom-right" />
     </>
   );
 }

@@ -1,0 +1,122 @@
+@font-face {
+  font-family:'Roboto' ;
+  src:  url("/fonts/Roboto-Light.ttf") format('truetype');
+  font-weight:300;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family:'Roboto' ;
+  src:  url("/fonts/Roboto-Regular.ttf") format('truetype');
+  font-weight:normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family:'Roboto' ;
+  src:  url("/fonts/Roboto-Medium.ttf") format('truetype');
+  font-weight:500;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family:'Roboto' ;
+  src: url("/fonts/Roboto-Bold.ttf") format('truetype');
+  font-weight:700;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family:'Roboto' ;
+  src: url("/fonts/Roboto-Black.ttf") format('truetype');
+  font-weight:900;
+  font-display: fallback;
+}
+
+:root {
+  /* Font Family */
+  --font-family: "Roboto", sans-serif;
+
+  /*Font sizing*/
+  --font-size-xs:12px;
+  --font-size-sm:14px;
+  --font-size-md:16px;
+  --font-size-lg:18px;
+  --font-size-xl:24px;
+  --font-size-2xl:28px;
+  --font-size-3xl:32px;
+  --font-size-4xl:36px;
+  --font-size-5xl:48px;
+
+  /* Spacing */
+  --spacing-null:0;
+  --spacing-2xs:4px;
+  --spacing-xs:8px;
+  --spacing-sm:16px;
+  --spacing-md:24px;
+  --spacing-xl:32px;
+  --spacing-2xl:36px;
+  --spacing-3xl:40px;
+  --spacing-4xl:48px;
+  --spacing-5xl:52px;
+  --spacing-6xl:64px;
+  --spacing-7xl:72px;
+
+  /* Border radius */
+  --radius-sm:12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl:32px;
+  --radius-rounded:100px;
+
+
+  /*Color Schema */
+  --red:#C75937;
+  --medium-gray:#BBB6B6;
+  --light-gray:#eeeeee;
+  --gray:#DBD4D4;
+  --green:#35D22D;
+  --orange:#dfad23; 
+  --white:#ffffff;
+  --black:#000000;
+
+  --bg-color:linear-gradient(180deg, var(--white) 50%, var(--gray) 75%);
+
+  --overlay-color:rgba(0, 0, 0, 0.4);
+  --box-shadow-color:rgba(0,0,0,0.25);
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: var(--font-family);
+  display:block;
+  overflow-x:hidden;
+  background-image: var(--bg-color);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size:cover;
+  background-position: center center;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;             
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--white);        
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--black);    
+  border-radius: var(--radius-xl);     
+  border: 3px solid var(--white);  
+}
