@@ -1,8 +1,10 @@
 import { Play, SwitchOn, Triangle, User } from "iconoir-react";
+import { useNavigate } from "react-router-dom";
 
 import { FeatureProps, GameCardProps } from "@interfaces/component";
 
 import { getGameStatusName, getGameModeName } from "@helpers/index";
+import { useAuthStore, useBingoStore, useLoading } from "@hooks/index";
 
 import { Button } from "@components/.";
 import { BingoBoardImage } from "@assets/index";
@@ -21,6 +23,12 @@ const Feature = ({ label, Icon, value }: FeatureProps): JSX.Element => {
 };
 
 const GameCard = ({ game }: GameCardProps): JSX.Element => {
+  const navigate = useNavigate();
+  const { joinToBingoGame } = useBingoStore();
+  const { loggedUser } = useAuthStore();
+
+  const { loading, toggleLoading } = useLoading();
+
   return (
     <Card>
       <img src={BingoBoardImage} alt="Bingo Board" loading="lazy" />
@@ -47,8 +55,22 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
         Icon={Play}
         title="Entrar al bingo!"
         type="button"
-        onClick={() => {}}
+        loading={loading}
+        onClick={() => {
+          if (loggedUser) {
+            joinToBingoGame(
+              game._id,
+              {
+                name: loggedUser.name,
+                email: loggedUser.email,
+                correctBallSelections: 0,
+              },
+              toggleLoading
+            ).then(() => navigate(`/home/lobby/${game._id}`));
+          }
+        }}
         variant="white"
+        disabled={loading.isLoading || game.gameStatus !== "unstart"}
       />
     </Card>
   );

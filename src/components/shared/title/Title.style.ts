@@ -9,29 +9,29 @@ const TitleContainer = styled.div`
 
   h1 {
     color: var(--black);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     text-align: center;
     font-weight: bold;
     text-transform: capitalize;
   }
   svg {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     color: var(--black);
   }
 
   @media (min-width: 768px) {
     h1 {
-      font-size: var(--font-size-3xl);
+      font-size: var(--font-size-xl);
     }
     svg {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
     }
   }
   @media (min-width: 1400px) {
     h1 {
-      font-size: var(--font-size-4xl);
+      font-size: var(--font-size-3xl);
     }
   }
 `;

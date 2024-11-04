@@ -86,6 +86,26 @@ interface Game {
   winner: User | null;
 }
 
+interface PlayerSelection {
+  playerEmail: string;
+  selectedBall: BingoBall;
+  cardCode: string;
+}
+
+interface WinnerPayload {
+  userId: string;
+  correctBallSelections: number;
+  gameMode: GameModeType;
+}
+
+/**Bingo Responses types */
+type UpdatedGameStatus = Pick<Game, "_id" | "gameStatus">;
+type UpdatedGamePlayers = Pick<Game, "_id" | "players">;
+type UpdatedGameBingoCards = Pick<Game, "_id" | "bingoCards">;
+type UpdatedGameRandomBalls = Pick<Game, "_id" | "randomBingoBalls">;
+type UpdatedGameBallSelection = Pick<Game, "_id" | "bingoCards" | "players">;
+type UpdatedGameWinner = Pick<Game, "_id" | "winner">;
+
 export type {
   FieldErrorType,
   WrongInput,
@@ -106,4 +126,12 @@ export type {
   BingoBall,
   BingoCard,
   Game,
+  PlayerSelection,
+  WinnerPayload,
+  UpdatedGameStatus,
+  UpdatedGamePlayers,
+  UpdatedGameBingoCards,
+  UpdatedGameRandomBalls,
+  UpdatedGameBallSelection,
+  UpdatedGameWinner,
 };

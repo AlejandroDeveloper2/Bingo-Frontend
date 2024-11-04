@@ -13,23 +13,13 @@ const Main = styled.main`
 `;
 
 const Content = styled.section`
-  width: 320px;
+  width: auto;
   height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--spacing-6xl);
-  /* margin-top: 200px; */
-
-  @media (min-width: 768px) {
-    width: 420px;
-  }
-
-  @media (min-width: 768px) {
-    width: auto;
-    max-width: 778px;
-  }
+  display: grid;
+  place-content: center;
+  padding-bottom: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
 `;
 
 export { Main, Content };

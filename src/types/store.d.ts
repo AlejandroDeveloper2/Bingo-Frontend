@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 import {
   LoginData,
   Loading,
@@ -6,6 +7,12 @@ import {
   User,
   Game,
   BingoCard,
+  GameStatusType,
+  Player,
+  GameModeType,
+  PlayerSelection,
+  WinnerPayload,
+  BingoBall,
 } from "./data";
 
 interface AuthStore {
@@ -30,9 +37,54 @@ interface AuthStore {
 }
 
 interface BingoStore {
+  socket: Socket;
+  disqualifiedPlayer: boolean;
+  bingoMessageLog: {
+    message: string;
+    error: boolean;
+  };
+  games: Game[];
   bingo: Game;
   player: Player;
   bingoBoard: BingoCard;
+  randomBalls: BingoBall[];
+  updateStoreState: <T>(updatedData: T, key: string) => void;
+  createBingoGame: (newGame: Game) => void;
+  getBingoGames: () => Promise<void>;
+  getGame: (gameId: string, userEmail: string) => Promise<void>;
+  updateGameStatus: (
+    gameId: string,
+    gameStatus: GameStatusType
+  ) => Promise<void>;
+  joinToBingoGame: (
+    gameId: string,
+    player: Omit<Player, "_id">,
+    toggleLoading: (loadingStatus: Loading) => void
+  ) => Promise<void>;
+  deletePlayerFromBingo: (
+    gameId: string,
+    playerId: string,
+    cardCode: string
+  ) => Promise<void>;
+  generateBingoCard: (
+    gameId: string,
+    userId: string,
+    gameMode: GameModeType,
+    toggleLoading: (loadingStatus: Loading) => void
+  ) => Promise<void>;
+  getRandomBall: (gameId: string) => Promise<void>;
+  selectBingoBall: (
+    gameId: string,
+    ballId: string,
+    playerSelection: PlayerSelection,
+    toggleLoading: (loadingStatus: Loading) => void
+  ) => Promise<void>;
+  singBingo: (
+    gameId: string,
+    winnerPayload: WinnerPayload,
+    toggleLoading: (loadingStatus: Loading) => void
+  ) => Promise<void>;
+  resetBingoGame: (gameId: string) => Promise<void>;
 }
 
 export type { AuthStore, BingoStore };

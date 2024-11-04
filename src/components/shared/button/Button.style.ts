@@ -21,6 +21,7 @@ const Button = styled.button<ButtonStyle>`
   align-items: center;
   gap: var(--spacing-sm);
   transition: opacity 0.6s ease;
+  opacity: ${(props) => (props.disabled ? 0.4 : 1)};
 
   span {
     font-size: var(--font-size-lg);
@@ -39,7 +40,7 @@ const Button = styled.button<ButtonStyle>`
   }
 
   &:hover {
-    opacity: 0.7;
+    opacity: ${(props) => (props.disabled ? 0.4 : 0.7)};
   }
 
   @media (min-width: 768px) {

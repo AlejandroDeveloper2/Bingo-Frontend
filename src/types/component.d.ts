@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Game, Loading } from "./data";
+import { BingoBall, BingoCard, Game, Loading } from "./data";
 
 type ButtonVariantType = "black" | "white";
 type IconType = React.ForwardRefExoticComponent<
@@ -30,6 +30,7 @@ interface BaseButtonProps {
   children: ReactNode | ReactNode[];
   border?: boolean;
   loading?: Loading;
+  disabled?: boolean;
 }
 
 interface ButtonProps extends Omit<BaseButtonProps, "children"> {
@@ -114,6 +115,22 @@ interface FeatureProps {
   value: string | number;
 }
 
+interface AvatarProps {
+  userName: string;
+  connectionStatus: boolean;
+  you?: boolean;
+}
+
+interface BingoBoardProps {
+  boardData: BingoCard;
+}
+
+interface BingoBallProps {
+  index: number;
+  randomBallSize: number;
+  ballData: BingoBall;
+}
+
 export type {
   ButtonVariantType,
   IconType,
@@ -139,4 +156,7 @@ export type {
   GameCardListProps,
   FeatureProps,
   GameCardProps,
+  AvatarProps,
+  BingoBoardProps,
+  BingoBallProps,
 };

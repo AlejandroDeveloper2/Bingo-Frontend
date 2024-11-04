@@ -84,10 +84,12 @@ const authStore = create<AuthStore>((set, get) => ({
       const token: string = window.localStorage.getItem("token") ?? "";
       const decodedToken: Auth | null = decodeToken<Auth>(token);
       if (token && decodedToken) {
-        const { data, message }: ServerResponse<User> =
-          await authService.getUserProfile(decodedToken.id, token);
+        const { data }: ServerResponse<User> = await authService.getUserProfile(
+          decodedToken.id,
+          token
+        );
         set({ loggedUser: data });
-        toast.success(message);
+        // toast.success(message);
         return;
       }
       toast.warning("No hay ningun token!");

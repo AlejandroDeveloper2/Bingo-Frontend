@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Badge = styled.div`
   background-color: var(--light-gray);
-  width: auto;
+  width: 100%;
   height: auto;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-rounded);
@@ -14,7 +14,7 @@ const Badge = styled.div`
   label {
     color: var(--black);
     text-align: center;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-lg);
     font-weight: bold;
     text-transform: capitalize;
   }
@@ -28,7 +28,7 @@ const Badge = styled.div`
     span {
       color: var(--black);
       text-align: center;
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-lg);
       font-weight: normal;
       text-transform: capitalize;
     }
@@ -42,13 +42,7 @@ const Badge = styled.div`
 
   @media (min-width: 768px) {
     padding: var(--spacing-md) var(--spacing-xl);
-    label {
-      font-size: var(--font-size-md);
-    }
     div {
-      span {
-        font-size: var(--font-size-md);
-      }
       svg {
         width: 32px;
         height: 32px;
@@ -57,13 +51,7 @@ const Badge = styled.div`
   }
 
   @media (min-width: 1400px) {
-    label {
-      font-size: var(--font-size-lg);
-    }
     div {
-      span {
-        font-size: var(--font-size-lg);
-      }
       svg {
         width: 36px;
         height: 36px;

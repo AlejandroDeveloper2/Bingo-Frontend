@@ -29,6 +29,7 @@ const PrivateLayout = (): JSX.Element => {
             : Gamepad
         }
       />
+
       <Content>
         <Outlet />
       </Content>

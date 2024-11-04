@@ -7,7 +7,11 @@ const ListContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
+
+  @media (min-width: 768px) {
+    gap: var(--spacing-md);
+  }
 `;
 
 const Ul = styled.ul`

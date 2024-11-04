@@ -11,9 +11,16 @@ export { default as Spinner } from "./shared/spinner/Spinner";
 export { default as Navigation } from "./shared/navigation/Navigation";
 export { default as BadgeIndicator } from "./shared/badge-indicator/BadgeIndicator";
 export { default as Title } from "./shared/title/Title";
+export { default as Avatar } from "./shared/avatar/Avatar";
 
 export { default as LoginForm } from "./auth/login-form/LoginForm";
 export { default as RegisterForm } from "./auth/register-form/RegisterForm";
 
 export { default as GameCard } from "./bingo/game-card/GameCard";
 export { default as GameCardList } from "./bingo/game-card-list/GameCardList";
+export { default as LobbyIndicators } from "./bingo/lobby-indicators/LobbyIndicators";
+export { default as GenerateBoardSection } from "./bingo/generate-board-section/GenerateBoardSection";
+export { default as PlayerList } from "./bingo/player-list/PlayerList";
+export { default as BingoBoard } from "./bingo/bingo-board/BingoBoard";
+export { default as BingoBallList } from "./bingo/bingo-ball-list/BingoBallList";
+export { default as BingoMessages } from "./bingo/bingo-messages/BingoMessages";

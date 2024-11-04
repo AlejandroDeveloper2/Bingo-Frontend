@@ -4,6 +4,14 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      "/socket.io": {
+        target: "http://localhost:3002",
+        ws: true,
+      },
+    },
+  },
   resolve: {
     alias: [
       { find: "@assets", replacement: "/src/assets" },
@@ -19,6 +27,7 @@ export default defineConfig({
       { find: "@routes", replacement: "/src/routes" },
       { find: "@config", replacement: "/src/config" },
       { find: "@layout", replacement: "/src/layout" },
+      { find: "@styles", replacement: "/src/styles" },
     ],
   },
 });

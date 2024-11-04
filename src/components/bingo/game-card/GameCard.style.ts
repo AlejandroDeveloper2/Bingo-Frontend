@@ -32,6 +32,7 @@ const Card = styled.div`
   }
 
   @media (min-width: 768px) {
+    width: 350px;
     gap: var(--spacing-md);
     padding: var(--spacing-4xl) var(--spacing-xl);
     h2 {
@@ -40,6 +41,7 @@ const Card = styled.div`
   }
 
   @media (min-width: 1400px) {
+    width: 520px;
     h2 {
       font-size: var(--font-size-3xl);
     }
