@@ -42,6 +42,11 @@ const HeadCell = styled.li`
   border-radius: var(--radius-sm);
   background-color: var(--black);
   list-style: none;
+  transition: background-color 0.6s ease;
+
+  &:hover {
+    background-color: var(--medium-gray);
+  }
 
   span {
     color: var(--white);

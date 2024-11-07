@@ -1,13 +1,9 @@
 import { BingoBallProps } from "@interfaces/component";
 import { BallContainer } from "./BingoBall.style";
 
-const BingoBall = ({
-  ballData,
-  index,
-  randomBallSize,
-}: BingoBallProps): JSX.Element => {
+const BingoBall = ({ ballData }: BingoBallProps): JSX.Element => {
   return (
-    <BallContainer newball={String(index === randomBallSize - 1)}>
+    <BallContainer newball={String(true)}>
       <span>{ballData.name + ballData.number}</span>
     </BallContainer>
   );

@@ -14,6 +14,7 @@ import {
   WinnerPayload,
   BingoBall,
 } from "./data";
+import { NavigateFunction } from "react-router-dom";
 
 interface AuthStore {
   loggedUser: User | null;
@@ -38,7 +39,6 @@ interface AuthStore {
 
 interface BingoStore {
   socket: Socket;
-  disqualifiedPlayer: boolean;
   bingoMessageLog: {
     message: string;
     error: boolean;
@@ -46,8 +46,8 @@ interface BingoStore {
   games: Game[];
   bingo: Game;
   player: Player;
+  launchedBall: BingoBall | null;
   bingoBoard: BingoCard;
-  randomBalls: BingoBall[];
   updateStoreState: <T>(updatedData: T, key: string) => void;
   createBingoGame: (newGame: Game) => void;
   getBingoGames: () => Promise<void>;
@@ -72,7 +72,7 @@ interface BingoStore {
     gameMode: GameModeType,
     toggleLoading: (loadingStatus: Loading) => void
   ) => Promise<void>;
-  getRandomBall: (gameId: string) => Promise<void>;
+
   selectBingoBall: (
     gameId: string,
     ballId: string,
@@ -82,6 +82,7 @@ interface BingoStore {
   singBingo: (
     gameId: string,
     winnerPayload: WinnerPayload,
+    navigate: NavigateFunction,
     toggleLoading: (loadingStatus: Loading) => void
   ) => Promise<void>;
   resetBingoGame: (gameId: string) => Promise<void>;

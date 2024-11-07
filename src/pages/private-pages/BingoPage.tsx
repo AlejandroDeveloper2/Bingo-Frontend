@@ -1,4 +1,5 @@
 import { Hourglass, KanbanBoard, Star } from "iconoir-react";
+import { useNavigate } from "react-router-dom";
 
 import {
   useLoading,
@@ -12,7 +13,7 @@ import {
 
 import {
   BadgeIndicator,
-  BingoBallList,
+  LaunchedBallContent,
   BingoBoard,
   BingoMessages,
   Button,
@@ -24,14 +25,14 @@ import { Grid, Column } from "@styles/index.style";
 
 const BingoPage = (): JSX.Element => {
   useSocket();
-
+  const navigate = useNavigate();
   const { gameId } = useFetchBingoData();
   const { bingo, bingoBoard, player, singBingo } = useBingoStore();
   const { loggedUser } = useAuthStore();
 
   const { loading, toggleLoading } = useLoading();
 
-  const time = useBallTimer();
+  const countDown = useBallTimer();
   usePlayBingo();
 
   return (
@@ -54,21 +55,22 @@ const BingoPage = (): JSX.Element => {
                     correctBallSelections: player.correctBallSelections,
                     gameMode: bingo.gameMode,
                   },
+                  navigate,
                   toggleLoading
                 );
             }}
             variant="black"
             loading={loading}
-            disabled={loading.isLoading}
+            disabled={loading.isLoading || bingo.winner !== null}
           />
         </Column>
         <Column>
           <BadgeIndicator
             label="Próxima balota en: "
-            value={time}
+            value={countDown}
             Icon={Hourglass}
           />
-          <BingoBallList />
+          <LaunchedBallContent />
           <BingoMessages />
           <PlayerList />
         </Column>

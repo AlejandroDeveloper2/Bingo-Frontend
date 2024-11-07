@@ -126,9 +126,15 @@ interface BingoBoardProps {
 }
 
 interface BingoBallProps {
-  index: number;
-  randomBallSize: number;
   ballData: BingoBall;
+}
+
+interface ModalProps {
+  title: string;
+  Icon: IconType;
+  children: ReactNode | ReactNode;
+  isVisible: boolean;
+  toggleVisible: () => void;
 }
 
 export type {
@@ -159,4 +165,5 @@ export type {
   AvatarProps,
   BingoBoardProps,
   BingoBallProps,
+  ModalProps,
 };

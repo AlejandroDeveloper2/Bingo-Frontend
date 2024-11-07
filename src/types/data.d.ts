@@ -80,7 +80,7 @@ interface Game {
   _id: string;
   players: Player[];
   bingoCards: BingoCard[];
-  randomBingoBalls: BingoBall[];
+  launchedBallsHistory: BingoBall[];
   gameMode: GameModeType;
   gameStatus: GameStatusType;
   winner: User | null;
@@ -102,7 +102,7 @@ interface WinnerPayload {
 type UpdatedGameStatus = Pick<Game, "_id" | "gameStatus">;
 type UpdatedGamePlayers = Pick<Game, "_id" | "players">;
 type UpdatedGameBingoCards = Pick<Game, "_id" | "bingoCards">;
-type UpdatedGameRandomBalls = Pick<Game, "_id" | "randomBingoBalls">;
+type UpdatedGameRandomBalls = Pick<Game, "_id" | "launchedBallsHistory">;
 type UpdatedGameBallSelection = Pick<Game, "_id" | "bingoCards" | "players">;
 type UpdatedGameWinner = Pick<Game, "_id" | "winner">;
 

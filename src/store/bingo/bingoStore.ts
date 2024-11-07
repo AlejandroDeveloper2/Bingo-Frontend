@@ -11,7 +11,6 @@ import {
   UpdatedGameBallSelection,
   UpdatedGameBingoCards,
   UpdatedGamePlayers,
-  UpdatedGameRandomBalls,
   UpdatedGameStatus,
   UpdatedGameWinner,
 } from "@interfaces/data";
@@ -28,7 +27,6 @@ const bingoService = new BingoService();
 
 const bingoStore = create<BingoStore>((set, get) => ({
   socket: io("/"),
-  disqualifiedPlayer: false,
   bingoMessageLog: {
     message: "",
     error: false,
@@ -36,8 +34,8 @@ const bingoStore = create<BingoStore>((set, get) => ({
   games: [],
   bingo: bingoDefaultValues,
   player: playerDefaultValues,
+  launchedBall: null,
   bingoBoard: defaultBingoBoard,
-  randomBalls: [],
 
   updateStoreState: <T>(updatedData: T, key: string): void => {
     set({ [key]: updatedData });
@@ -171,21 +169,6 @@ const bingoStore = create<BingoStore>((set, get) => ({
       toggleLoading({ isLoading: false, message: "" });
     }
   },
-  getRandomBall: async (gameId): Promise<void> => {
-    const token: string = window.localStorage.getItem("token") ?? "";
-    try {
-      const { data, message }: ServerResponse<UpdatedGameRandomBalls> =
-        await bingoService.getRandomBall(token, gameId);
-
-      /*Socket io */
-      get().socket.emit("launch_random_ball", data);
-      set({ bingoMessageLog: { message, error: false } });
-    } catch (e: unknown) {
-      const parsedError = e as ErrorResponse;
-      set({ bingoMessageLog: { message: parsedError.message, error: true } });
-    }
-  },
-
   selectBingoBall: async (
     gameId,
     ballId,
@@ -223,9 +206,18 @@ const bingoStore = create<BingoStore>((set, get) => ({
       toggleLoading({ isLoading: false, message: "" });
     }
   },
-  singBingo: async (gameId, winnerPayload, toggleLoading): Promise<void> => {
+  singBingo: async (
+    gameId,
+    winnerPayload,
+    navigate,
+    toggleLoading
+  ): Promise<void> => {
     toggleLoading({ isLoading: true, message: "..." });
+
     const token: string = window.localStorage.getItem("token") ?? "";
+    const playerId: string = get().player._id;
+    const bingoBoardCode: string = get().bingoBoard.code;
+
     try {
       const { data, message }: ServerResponse<UpdatedGameWinner> =
         await bingoService.singBingo(token, gameId, winnerPayload);
@@ -235,11 +227,15 @@ const bingoStore = create<BingoStore>((set, get) => ({
       set({ bingoMessageLog: { message, error: false } });
     } catch (e: unknown) {
       const parsedError = e as ErrorResponse;
-      set({ disqualifiedPlayer: true });
+      /* Valida si un usuario a Cantado bingo sin ganar y lo descalifica y elimina del juego */
+      get()
+        .deletePlayerFromBingo(gameId, playerId, bingoBoardCode)
+        .then(() => {
+          navigate("/home");
+        });
       set({ bingoMessageLog: { message: parsedError.message, error: true } });
     } finally {
       toggleLoading({ isLoading: false, message: "" });
-      set({ disqualifiedPlayer: false });
     }
   },
   resetBingoGame: async (gameId): Promise<void> => {
@@ -249,7 +245,11 @@ const bingoStore = create<BingoStore>((set, get) => ({
         await bingoService.resetBingoGame(token, gameId);
       /**Socket Io */
       get().socket.emit("reset_bingo", data);
-      set({ bingoBoard: defaultBingoBoard, player: playerDefaultValues });
+      set({
+        bingoBoard: defaultBingoBoard,
+        player: playerDefaultValues,
+        launchedBall: null,
+      });
       toast.success(message);
     } catch (e: unknown) {
       const parsedError = e as ErrorResponse;

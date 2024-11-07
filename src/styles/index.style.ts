@@ -21,21 +21,21 @@ const Column = styled.section`
 const Grid = styled.div`
   width: auto;
   height: auto;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  /* display: grid;
-  grid-template-rows: repeat(2, auto); */
+  align-items: center; */
+  display: grid;
+  grid-template-rows: repeat(2, auto);
   gap: var(--spacing-md);
-  /* align-items: flex-start; */
+  align-items: flex-start;
 
   @media (min-width: 768px) {
-    /* grid-template-rows: none;
-    grid-template-columns: repeat(2, 1f); */
-    align-items: flex-start;
+    grid-template-rows: none;
+    grid-template-columns: repeat(2, 1fr);
+    /* align-items: flex-start;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: row; */
     gap: var(--spacing-xl);
   }
 `;

@@ -8,15 +8,7 @@ import { toast } from "react-toastify";
 
 const usePlayBingo = (): void => {
   const { gameId } = useParams();
-  const {
-    disqualifiedPlayer,
-    bingo,
-    player,
-    bingoBoard,
-    resetBingoGame,
-    updateGameStatus,
-    deletePlayerFromBingo,
-  } = useBingoStore();
+  const { bingo, resetBingoGame, updateGameStatus } = useBingoStore();
   const { loggedUser } = useAuthStore();
 
   const navigate = useNavigate();
@@ -61,19 +53,6 @@ const usePlayBingo = (): void => {
       axios.CancelToken.source().cancel();
     };
   }, [bingo.winner, gameId]);
-
-  /* Valida si un usuario a Cantado bingo sin ganar y lo descalifica y elimina del juego */
-  useEffect(() => {
-    if (disqualifiedPlayer && gameId) {
-      deletePlayerFromBingo(gameId, player._id, bingoBoard.code).then(() => {
-        navigate("/home");
-      });
-    }
-
-    return () => {
-      axios.CancelToken.source().cancel();
-    };
-  }, [disqualifiedPlayer]);
 };
 
 export default usePlayBingo;

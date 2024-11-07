@@ -10,7 +10,6 @@ import {
   UpdatedGameBallSelection,
   UpdatedGameBingoCards,
   UpdatedGamePlayers,
-  UpdatedGameRandomBalls,
   UpdatedGameStatus,
   UpdatedGameWinner,
   WinnerPayload,
@@ -183,28 +182,6 @@ class BingoService {
       return handleError(e);
     }
   };
-
-  public getRandomBall = async (
-    token: string,
-    gameId: string
-  ): Promise<ServerResponse<UpdatedGameRandomBalls>> => {
-    let updatedGameResponse: ServerResponse<UpdatedGameRandomBalls>;
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      const { data } = await axiosClient.get<
-        ServerResponse<UpdatedGameRandomBalls>
-      >(`/bingo/randomBall/${gameId}`, config);
-      updatedGameResponse = data;
-      return updatedGameResponse;
-    } catch (e: unknown) {
-      return handleError(e);
-    }
-  };
   public selectBingoBall = async (
     token: string,
     gameId: string,
@@ -228,6 +205,7 @@ class BingoService {
       return handleError(e);
     }
   };
+
   public singBingo = async (
     token: string,
     gameId: string,

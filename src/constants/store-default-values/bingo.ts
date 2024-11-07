@@ -4,10 +4,10 @@ export const bingoDefaultValues: Game = {
   _id: "",
   players: [],
   bingoCards: [],
-  randomBingoBalls: [],
   gameMode: "corners",
   gameStatus: "unstart",
   winner: null,
+  launchedBallsHistory: [],
 };
 
 export const playerDefaultValues: Player = {

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 
-import { BingoBall, Game } from "@interfaces/data";
+import { Game } from "@interfaces/data";
 
 import useBingoStore from "./useBingoStore";
 import {
@@ -13,7 +13,22 @@ import {
 const socket: Socket = io("/");
 
 const useSocket = (): void => {
+  const [socketEvents] = useState<string[]>([
+    "updated_status",
+    "joined_to_bingo",
+    "leave_bingo",
+    "generated_card",
+    "selected_ball",
+    "won_game",
+    "reseted_bingo",
+  ]);
   const { games, bingo, updateStoreState } = useBingoStore();
+
+  const offSocketEvents = (): void => {
+    socketEvents.forEach((event) => {
+      socket.off(event);
+    });
+  };
 
   useEffect(() => {
     socket.on("updated_status", (updatedBingo: Game) => {
@@ -52,23 +67,8 @@ const useSocket = (): void => {
         updatedBingo,
         "bingoCards"
       );
-      console.log(updatedGames);
       updateStoreState<Game[]>(updatedGames, "games");
       updateStoreState<Game>({ ...bingo, ...updatedBingo }, "bingo");
-    });
-
-    socket.on("launched_random_ball", (updatedBingo: Game) => {
-      const updatedGames: Game[] = updateBingoState(
-        games,
-        updatedBingo,
-        "randomBingoBalls"
-      );
-      updateStoreState<Game[]>(updatedGames, "games");
-      // updateStoreState<Game>({ ...bingo, ...updatedBingo }, "bingo");
-      updateStoreState<BingoBall[]>(
-        updatedBingo.randomBingoBalls,
-        "randomBalls"
-      );
     });
 
     socket.on("selected_ball", (updatedBingo: Game) => {
@@ -97,7 +97,7 @@ const useSocket = (): void => {
     });
 
     return () => {
-      socket.off();
+      offSocketEvents();
     };
   });
 };

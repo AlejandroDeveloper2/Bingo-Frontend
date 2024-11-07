@@ -1,9 +1,11 @@
 import { useLocation, useParams } from "react-router-dom";
 
 import { BingoBoardProps } from "@interfaces/component";
-import { BingoBall } from "@interfaces/data";
 
 import { useBingoStore, useLoading } from "@hooks/.";
+import { drawBingoBoard } from "@utils/index";
+
+import { Spinner } from "@components/index";
 
 import {
   BoardContainer,
@@ -13,34 +15,18 @@ import {
   Column,
   Table,
 } from "./BingoBoard.style";
-import { Spinner } from "@components/index";
+import { useState } from "react";
+import { BingoBall } from "@interfaces/data";
 
 const BingoBoard = ({ boardData }: BingoBoardProps): JSX.Element => {
+  const [selectedBall, setSelectedBall] = useState<BingoBall | null>(null);
   const { gameId } = useParams();
   const location = useLocation();
-  const { player, bingoBoard, selectBingoBall } = useBingoStore();
 
+  const { player, bingoBoard, selectBingoBall } = useBingoStore();
   const { loading, toggleLoading } = useLoading();
 
-  const B = boardData.balls.filter((ball) => ball.name === "B");
-  const I = boardData.balls.filter((ball) => ball.name === "I");
-  const N = boardData.balls.filter((ball) => ball.name === "N");
-  const G = boardData.balls.filter((ball) => ball.name === "G");
-  const O = boardData.balls.filter((ball) => ball.name === "O");
-
-  const NBlank: BingoBall[] = [
-    ...N,
-    {
-      _id: "blank",
-      name: "N",
-      number: 0,
-      enabled: false,
-      selected: false,
-    },
-  ];
-
-  const headers: string[] = ["B", "I", "N", "G", "O"];
-  const boardMatrix: BingoBall[][] = [B, I, NBlank, G, O];
+  const { headers, boardMatrix } = drawBingoBoard(boardData);
 
   return (
     <BoardContainer>
@@ -66,7 +52,8 @@ const BingoBoard = ({ boardData }: BingoBoardProps): JSX.Element => {
                     ball._id !== "blank" &&
                     ball.enabled &&
                     location.pathname === "/home/bingo/" + gameId
-                  )
+                  ) {
+                    setSelectedBall(ball);
                     selectBingoBall(
                       gameId,
                       ball._id,
@@ -81,9 +68,10 @@ const BingoBoard = ({ boardData }: BingoBoardProps): JSX.Element => {
                       },
                       toggleLoading
                     );
+                  }
                 }}
               >
-                {loading.isLoading ? (
+                {loading.isLoading && selectedBall?._id === ball._id ? (
                   <Spinner color="black" direction={"row"} />
                 ) : (
                   <span>{ball.name + ball.number}</span>

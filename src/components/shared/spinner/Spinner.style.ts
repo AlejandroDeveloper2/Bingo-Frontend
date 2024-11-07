@@ -34,18 +34,18 @@ const SpinnerContainer = styled.div<{
 const SpinnerBody = styled.div<{ color: string }>`
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   box-sizing: border-box;
 
   div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 38px;
+    height: 38px;
     margin: 8px;
-    border: 8px solid ${({ color }: { color: string }) => color};
+    border: 5px solid ${({ color }: { color: string }) => color};
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: ${({ color }: { color: string }) => color} transparent

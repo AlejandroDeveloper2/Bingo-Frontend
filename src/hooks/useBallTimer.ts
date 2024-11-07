@@ -1,42 +1,56 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+
+import { BingoBall, Game, UpdatedGameRandomBalls } from "@interfaces/data";
 
 import useBingoStore from "./useBingoStore";
 
-const useBallTimer = (): string => {
-  const [seconds, setSeconds] = useState<number>(5);
-  const { bingo, getRandomBall } = useBingoStore();
+const useBallTimer = () => {
+  const token: string = window.localStorage.getItem("token") ?? "";
+
+  const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
+  const { socket, bingo, updateStoreState } = useBingoStore();
 
   const condition: boolean =
-    bingo.winner === null &&
-    bingo.gameStatus === "in-progress" &&
-    bingo.randomBingoBalls.length < 75;
+    bingo.winner === null && bingo.gameStatus === "in-progress";
 
   useEffect(() => {
     if (condition) {
-      const interval = window.setInterval(() => {
-        getRandomBall(bingo._id);
-      }, 5000);
-
-      return () => window.clearInterval(interval);
+      socket.emit("enter_game_room", { gameId: bingo._id, token });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [condition]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSeconds((prevTime) => {
-        if (prevTime === 1) {
-          return 5;
-        } else {
-          return prevTime - 1;
-        }
-      });
-    }, 1000);
+    socket.on("timer_update", (time: number) => {
+      setSecondsLeft(time);
+    });
 
-    return () => clearInterval(intervalId);
-  }, [seconds]);
+    socket.on("launched_ball", (randomBall: BingoBall) => {
+      updateStoreState<BingoBall>(randomBall, "launchedBall");
+    });
 
-  return `0:0${seconds}s`;
+    socket.on(
+      "updated_history",
+      ({ launchedBallsHistory }: UpdatedGameRandomBalls) => {
+        updateStoreState<Game>({ ...bingo, launchedBallsHistory }, "bingo");
+      }
+    );
+
+    socket.on("message", (message: string) => {
+      updateStoreState<{ message: string; error: boolean }>(
+        { message, error: false },
+        "bingoMessageLog"
+      );
+    });
+
+    return () => {
+      socket.off("timer_update");
+      socket.off("launched_ball");
+      socket.off("message");
+    };
+  });
+
+  return `0:0${!secondsLeft ? 0 : secondsLeft}s`;
 };
 
 export default useBallTimer;
