@@ -47,6 +47,7 @@ const useBallTimer = () => {
       socket.off("timer_update");
       socket.off("launched_ball");
       socket.off("message");
+      socket.off("updated_history");
     };
   });
 
