@@ -94,6 +94,7 @@ const useSocket = (): void => {
       const updatedGames: Game[] = updateBingoFullState(games, updatedBingo);
       updateStoreState<Game[]>(updatedGames, "games");
       updateStoreState<Game>({ ...updatedBingo }, "bingo");
+      updateStoreState<null>(null, "launchedBall");
     });
 
     return () => {

@@ -12,11 +12,17 @@ const useBallTimer = () => {
   const { socket, bingo, updateStoreState } = useBingoStore();
 
   const condition: boolean =
-    bingo.winner === null && bingo.gameStatus === "in-progress";
+    bingo.winner === null &&
+    bingo.gameStatus === "in-progress" &&
+    bingo.players.length >= 1;
 
   useEffect(() => {
     if (condition) {
-      socket.emit("enter_game_room", { gameId: bingo._id, token });
+      socket.emit("enter_game_room", {
+        gameId: bingo._id,
+        token,
+        players: bingo.players.length,
+      });
     }
   }, [condition]);
 

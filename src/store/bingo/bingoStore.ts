@@ -224,6 +224,10 @@ const bingoStore = create<BingoStore>((set, get) => ({
 
       /*Socket io */
       get().socket.emit("win_game", data);
+      get().socket.emit("leave_game_room", {
+        room: "bingo_room",
+        players: get().bingo.players.length,
+      });
       set({ bingoMessageLog: { message, error: false } });
     } catch (e: unknown) {
       const parsedError = e as ErrorResponse;
