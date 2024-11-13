@@ -21,7 +21,6 @@ const useBallTimer = () => {
       socket.emit("enter_game_room", {
         gameId: bingo._id,
         token,
-        players: bingo.players.length,
       });
     }
   }, [condition]);
