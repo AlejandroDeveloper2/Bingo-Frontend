@@ -41,7 +41,7 @@ const AvatarCircle = styled.div<CircleStyle>`
   align-items: center;
   position: relative;
   border: ${({ you }: CircleStyle) =>
-    you ? "3px solid var(--black)" : "none"};
+    you === "true" ? "3px solid var(--black)" : "none"};
 
   svg {
     width: 32px;

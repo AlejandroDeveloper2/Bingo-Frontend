@@ -9,8 +9,8 @@ const PrivateRoutes = (): JSX.Element => {
     <Routes>
       <Route path="/home" element={<PrivateLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/home/lobby/:gameId" element={<LobbyPage />} />
-        <Route path="/home/bingo/:gameId" element={<BingoPage />} />
+        <Route path="lobby" element={<LobbyPage />} />
+        <Route path="bingo" element={<BingoPage />} />
       </Route>
     </Routes>
   );

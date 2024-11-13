@@ -25,7 +25,8 @@ const useStartingTimer = (): string => {
   }, [bingo.players, bingo.bingoCards]);
 
   useEffect(() => {
-    if (seconds === 0) navigate("/home/bingo/" + bingo._id);
+    if (seconds === 0)
+      navigate("/home/bingo", { state: { gameId: bingo._id } });
   }, [seconds]);
 
   return seconds === 60

@@ -66,7 +66,9 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
                 correctBallSelections: 0,
               },
               toggleLoading
-            ).then(() => navigate(`/home/lobby/${game._id}`));
+            ).then(() =>
+              navigate("/home/lobby", { state: { gameId: game._id } })
+            );
           }
         }}
         variant="white"

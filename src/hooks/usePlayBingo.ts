@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -7,11 +7,13 @@ import { useAuthStore, useBingoStore } from ".";
 import { toast } from "react-toastify";
 
 const usePlayBingo = (): void => {
-  const { gameId } = useParams();
   const { bingo, resetBingoGame, updateGameStatus } = useBingoStore();
   const { loggedUser } = useAuthStore();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { gameId } = location.state || {};
 
   /**Actualiza el estado de bingo */
   useEffect(() => {

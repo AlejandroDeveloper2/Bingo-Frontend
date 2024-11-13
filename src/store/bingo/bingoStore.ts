@@ -236,8 +236,8 @@ const bingoStore = create<BingoStore>((set, get) => ({
         });
       set({ bingoMessageLog: { message: parsedError.message, error: true } });
     } finally {
-      get().socket.emit("leave_game_room", {
-        room: "bingo_room",
+      get().socket.emit("leave_bingo_room", {
+        roomName: "bingo_room",
         players: get().bingo.players.length,
       });
       toggleLoading({ isLoading: false, message: "" });

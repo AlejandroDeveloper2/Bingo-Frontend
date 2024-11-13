@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { BingoBoardProps } from "@interfaces/component";
 
@@ -20,8 +20,10 @@ import { BingoBall } from "@interfaces/data";
 
 const BingoBoard = ({ boardData }: BingoBoardProps): JSX.Element => {
   const [selectedBall, setSelectedBall] = useState<BingoBall | null>(null);
-  const { gameId } = useParams();
+
   const location = useLocation();
+
+  const { gameId } = location.state || {};
 
   const { player, bingoBoard, selectBingoBall } = useBingoStore();
   const { loading, toggleLoading } = useLoading();
@@ -51,7 +53,7 @@ const BingoBoard = ({ boardData }: BingoBoardProps): JSX.Element => {
                     gameId &&
                     ball._id !== "blank" &&
                     ball.enabled &&
-                    location.pathname === "/home/bingo/" + gameId
+                    location.pathname === "/home/bingo"
                   ) {
                     setSelectedBall(ball);
                     selectBingoBall(

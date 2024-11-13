@@ -5,6 +5,7 @@ import { PrivateRoutes, PublicRoutes } from "@routes/.";
 import { useAuthStore } from "@hooks/index";
 
 import { LoadingScreen, Spinner } from "@components/index";
+import { NotFound } from "@pages/index";
 
 const MainRoutes = (): JSX.Element => {
   const { authenticated, checking } = useAuthStore();
@@ -31,6 +32,7 @@ const MainRoutes = (): JSX.Element => {
             <Route path="/home/*" element={<Navigate to="/" />} />
           </>
         )}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
