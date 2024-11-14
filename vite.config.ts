@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/socket.io": {
-        target: "https://app-bingo-game.vercel.app",
+        target: "https://bingo-backend-production.up.railway.app",
         ws: true,
       },
     },
