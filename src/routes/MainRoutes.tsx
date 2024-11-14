@@ -1,11 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { PrivateRoutes, PublicRoutes } from "@routes/.";
-
 import { useAuthStore } from "@hooks/index";
 
-import { LoadingScreen, Spinner } from "@components/index";
+import { PublicRoutes, PrivateRoutes } from "@routes/.";
+
 import { NotFound } from "@pages/index";
+import { LoadingScreen, Spinner } from "@components/index";
 
 const MainRoutes = (): JSX.Element => {
   const { authenticated, checking } = useAuthStore();
@@ -23,7 +23,7 @@ const MainRoutes = (): JSX.Element => {
         {authenticated ? (
           <>
             <Route path="/*" element={<PrivateRoutes />} />
-            <Route path="/" element={<Navigate to={`/home`} />} />
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/createAccount/*" element={<Navigate to="/home" />} />
           </>
         ) : (
@@ -32,6 +32,8 @@ const MainRoutes = (): JSX.Element => {
             <Route path="/home/*" element={<Navigate to="/" />} />
           </>
         )}
+
+        {/* Ruta para página no encontrada */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

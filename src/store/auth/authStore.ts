@@ -18,7 +18,7 @@ const authService = new AuthService();
 const authStore = create<AuthStore>((set, get) => ({
   loggedUser: null,
   authData: decodeToken<Auth>(localStorage.getItem("token") ?? ""),
-  authenticated: false,
+  authenticated: localStorage.getItem("token") ? true : false,
   checking: false,
 
   login: async (userCredentials, toggleLoading): Promise<void> => {

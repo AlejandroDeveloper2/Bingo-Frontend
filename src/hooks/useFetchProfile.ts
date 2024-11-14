@@ -2,12 +2,10 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-import { User } from "@interfaces/data";
-
 import { useAuthStore, useLoading } from ".";
 
-const useFetchProfile = (): User | null => {
-  const { loggedUser, getUserProfile } = useAuthStore();
+const useFetchProfile = (): void => {
+  const { getUserProfile } = useAuthStore();
   const { toggleLoading } = useLoading();
 
   useEffect(() => {
@@ -16,8 +14,6 @@ const useFetchProfile = (): User | null => {
       axios.CancelToken.source().cancel();
     };
   }, []);
-
-  return loggedUser;
 };
 
 export default useFetchProfile;

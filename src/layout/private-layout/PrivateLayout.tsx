@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Clock, Gamepad, Home } from "iconoir-react";
 
-import { useSession } from "@hooks/index";
+import { useFetchProfile, useSession } from "@hooks/index";
 
 import { Navigation } from "@components/index";
 
@@ -10,6 +10,7 @@ import { Content, Main } from "./PrivateLayout.style";
 const PrivateLayout = (): JSX.Element => {
   useSession(1000);
   const location = useLocation();
+  useFetchProfile();
 
   return (
     <Main>
