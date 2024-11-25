@@ -10,7 +10,7 @@ import {
   updateBingoState,
 } from "@helpers/index";
 
-const socket: Socket = io("/");
+const socket: Socket = io(import.meta.env.VITE_PRODUCTION_API_URL);
 
 const useSocket = (): void => {
   const [socketEvents] = useState<string[]>([

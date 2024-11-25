@@ -26,7 +26,7 @@ import { BingoService } from "@services/index";
 const bingoService = new BingoService();
 
 const bingoStore = create<BingoStore>((set, get) => ({
-  socket: io("/"),
+  socket: io(import.meta.env.VITE_PRODUCTION_API_URL),
   bingoMessageLog: {
     message: "",
     error: false,
